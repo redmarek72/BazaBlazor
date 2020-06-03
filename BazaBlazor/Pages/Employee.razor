@@ -1,0 +1,68 @@
+﻿@page "/employee"
+@using BazaBlazor.Data
+@inject EmployeeService objEmpService
+@inject ApplicationDbContext context
+
+<NavLink class="nav-link" href="AddEmployee">
+    <span class="oi oi-plus" aria-hidden="true"></span> Add new
+</NavLink>
+
+<h1>Informacja</h1>
+@if (objEmp == null)
+{
+    <p><em>Ładuje.....</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th> Employe Id</th>
+                <th>LastName</th>
+                <th>FirstName</th>
+                <th>Country</th>
+                <th>City</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var emp in objEmp)
+            {
+                <tr>
+                    <td>@emp.EmployeeId</td>
+                    <td>@emp.LastName</td>
+                    <td>@emp.FirstName</td>
+                    <td>@emp.Country</td>
+                    <td>@emp.City</td>
+                    <td>
+                        <a class=" nav-link" href=" EditEmployee/@emp.EmployeeId">
+                            <span class="oi oi-pencil" aria-hidden="true"></span>Edit
+                        </a>
+                    </td>
+                    <td>
+                    <a class=" nav-link" href=" DeleteEmployee/@emp.EmployeeId">
+                        <span class="oi oi-pencil" aria-hidden="true"></span>Delete
+                    </a>
+                        </td>
+                </tr>
+            }
+
+        </tbody>
+
+    </table>
+}
+
+
+
+@code {
+    //var emp in objEmp
+  
+
+
+    List<EmployeeInfo> objEmp;
+
+    protected override async Task OnInitializedAsync()
+    {
+        objEmp = await Task.Run(() => objEmpService.GetEmployee());
+    }
+
+}
