@@ -31,12 +31,13 @@ namespace BazaBlazor
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
+            services.AddSyncfusionBlazor();
             services.AddSingleton<WeatherForecastService>();
             services.AddSingleton<EmployeeInfo>();
             services.AddScoped<EmployeeService>();
             services.AddDbContext<ApplicationDbContext>(Options =>
             Options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddSyncfusionBlazor(true);
+          
             Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MjYwMjYzQDMxMzgyZTMxMmUzMFdzaG9KdW1NWU91YmlJN2RxekZPN2lRd1ZBSlB5MTZxVGpEcDZuV1ZjSWs9");
 
         }

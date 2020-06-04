@@ -10,7 +10,31 @@
 @using BazaBlazor.Shared;
 @using Syncfusion.Blazor
 @using Syncfusion.Blazor.Grids
+@inject EmployeeService objEmpService
+@inject ApplicationDbContext context
 
 <h2>test</h2>
 
 
+<SfGrid DataSource="@objEmp" AllowPaging="true">
+    <GridPageSettings PageSize="5"></GridPageSettings>
+    <GridColumns>
+        <GridColumn Field="LastName" HeaderText="Nazwisko" TextAlign="TextAlign.Right" Width="120"></GridColumn>
+        <GridColumn Field="FirstName" HeaderText="Imię" Width="150"></GridColumn>
+        <GridColumn Field="City" HeaderText="Miasto" Width="100"></GridColumn>
+    </GridColumns>
+</SfGrid>
+
+@code {
+    //var emp in objEmp
+
+
+
+    List<EmployeeInfo> objEmp;
+
+    protected override async Task OnInitializedAsync()
+    {
+        objEmp = await Task.Run(() => objEmpService.GetEmployee());
+    }
+
+}
